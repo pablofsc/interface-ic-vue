@@ -8,7 +8,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                     </svg>
-                    Adicionar
+                    <p class="hide-on-mobile">&#160; Adicionar</p>
                 </button>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Pesquisar..." v-model="searchString">
@@ -43,13 +43,13 @@
                 </tr>
             </tbody>
         </table>
-        <p v-else style="text-align: center;">
+        <div v-else class="text-center">
             Carregando dados...
-        </p>
+        </div>
     </div>
 
-    <DetailsModal :selected="selectedOperator" @deleted="handleDeletion" />
-    <AddModal />
+    <DetailsModal :selected="selectedOperator" @deleted="handleChange" />
+    <AddModal @created="handleChange" />
 </template>
 
 <script>
@@ -103,7 +103,7 @@ export default {
     },
 
     methods: {
-        handleDeletion(action) {
+        handleChange(action) {
             console.log(action);
             console.log("Updating table...");
 
@@ -147,6 +147,7 @@ tr:hover {
 
 p {
     margin: 0;
+    display: inline
 }
 
 .topBarParent {
@@ -155,11 +156,11 @@ p {
     align-items: center;
 
     position: sticky;
-    top: 0;
+    top: 50px;
     z-index: 999;
 
     width: 100%;
-    padding: 50px 5% 70px 5%;
+    padding: 0px 5% 70px 5%;
 }
 
 .topBar {
@@ -195,5 +196,15 @@ p {
 
 .filler {
     flex-grow: 1;
+}
+
+@media (max-width: 1000px) {
+    .topBar {
+        width: 100%;
+    }
+
+    .hide-on-mobile {
+        display: none
+    }
 }
 </style>

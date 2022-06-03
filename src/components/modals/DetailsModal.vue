@@ -65,17 +65,17 @@ export default {
 
     methods: {
         deleteEntry(entry) {
-            fetch('http://localhost:3001/delete', {
+            fetch('https://pablofsc-interface-ic.herokuapp.com/delete', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ registrationNumber: entry['Registro ANS'] })
             })
-                .then(res => res.json())
                 .then(res => {
                     console.log(res);
                     $('#closeModalButton').click();
                     this.$emit('deleted');
-                });
+                })
+                .catch(e => console.log(e));
         },
 
         editEntry() {

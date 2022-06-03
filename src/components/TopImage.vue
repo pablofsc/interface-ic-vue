@@ -1,5 +1,5 @@
 <template>
-    <div class="text-center topImage shadow">
+    <div class="text-center topImage">
         <img src="../assets/ic.png" style="" />
     </div>
 </template>
@@ -11,8 +11,7 @@ export default { name: "TopImage" };
 <style scoped>
 .topImage {
     width: 100%;
-    margin-bottom: 50px;
-    background-color: #ffffff;
+    margin: 50px 0;
 }
 
 img {
