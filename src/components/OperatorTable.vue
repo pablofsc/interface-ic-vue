@@ -3,7 +3,13 @@
         <div class="topBarParent">
             <div class="topBar shadow-lg p-3">
                 <p style="font-size: 20px;">Operadoras ativas ANS</p>
-
+                <div class="filler"></div>
+                <button id="addOperatorButton" type="button" class="btn btn-dark" data-toggle="modal" data-target="#operatorAdd">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                    </svg>
+                    Adicionar
+                </button>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Pesquisar..." v-model="searchString">
                     <div class="input-group-append">
@@ -19,7 +25,7 @@
 
         <table v-if="operators" id="operator-table" class="table table-bordered shadow">
             <tbody>
-                <tr v-for="operator in filteredOperators" :key="operator.id" data-toggle="modal" data-target="#operatorInfo">
+                <tr v-for="operator in filteredOperators" :key="operator" data-toggle="modal" data-target="#operatorInfo">
                     <td @click="selectedOperator = operator">
                         <div class="operatorDetails">
                             <p class="left">
@@ -37,20 +43,27 @@
                 </tr>
             </tbody>
         </table>
-        <p v-else>
+        <p v-else style="text-align: center;">
             Carregando dados...
         </p>
     </div>
 
-    <Modal :selected="selectedOperator" />
+    <DetailsModal :selected="selectedOperator" @deleted="handleDeletion" />
+    <AddModal />
 </template>
 
 <script>
 import { ref } from 'vue';
-import Modal from './Modal.vue';
+import DetailsModal from './modals/DetailsModal.vue';
+import AddModal from './modals/AddModal.vue';
 
 export default {
     name: 'OperatorTable',
+
+    components: {
+        DetailsModal,
+        AddModal
+    },
 
     data() {
         let operators = ref(null);
@@ -89,8 +102,13 @@ export default {
         },
     },
 
-    components: {
-        Modal
+    methods: {
+        handleDeletion(action) {
+            console.log(action);
+            console.log("Updating table...");
+
+            location.reload(); // encontrar um meio melhor de atualizar a lista
+        }
     }
 };
 </script>
@@ -138,6 +156,7 @@ p {
 
     position: sticky;
     top: 0;
+    z-index: 999;
 
     width: 100%;
     padding: 50px 5% 70px 5%;
@@ -151,6 +170,10 @@ p {
 
     width: 90%;
     border-radius: 10px;
+}
+
+#addOperatorButton {
+    margin: 0 10px 0 0;
 }
 
 .operatorDetails {
@@ -168,5 +191,9 @@ p {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+.filler {
+    flex-grow: 1;
 }
 </style>
