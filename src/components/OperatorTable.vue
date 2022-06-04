@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <DetailsModal :selected="selectedOperator" @deleted="handleChange" />
+    <DetailsModal :selected="selectedOperator" @changed="handleChange" />
     <AddModal @created="handleChange" />
 </template>
 

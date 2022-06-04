@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <EditModal />
+    <EditModal :selected="selected" @updated="handleChange" />
 </template>
 
 <script>
@@ -58,6 +58,8 @@ export default {
     name: 'DetailsModal',
 
     props: ['selected'],
+
+    emits: ['changed'],
 
     components: {
         EditModal
@@ -73,13 +75,26 @@ export default {
                 .then(res => {
                     console.log(res);
                     $('#closeModalButton').click();
-                    this.$emit('deleted');
+                    this.$emit('changed');
                 })
                 .catch(e => console.log(e));
         },
 
         editEntry() {
+            this.selected['CNPJ'] = this.selected['CNPJ'].replace(/\D/g, '');
+
+            let date = new Date(this.selected['Data Registro ANS']);
+            date = date.toISOString().slice(0, 10);
+
+            this.selected['Data Registro ANS'] = date.toString();
+
+            this.selected['Registro Original'] = this.selected['Registro ANS'];
+
             $('#closeModalButton').click();
+        },
+
+        handleChange(action) {
+            this.$emit('changed');
         }
     }
 };

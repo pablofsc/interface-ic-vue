@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form v-on:submit.prevent class="needs-validation" novalidate>
+                    <form v-on:submit.prevent class="needs-validation" novalidate id="addForm">
                         <div class="form-group">
                             <label for="razao-social">Razão Social*</label>
                             <input required type="text" class="form-control" id="razao-social" placeholder="Operadora XYZ S.A.">
@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <label for="complemento">Complemento</label>
-                            <input type="text" class="form-control" id="complemento" placeholder="Edifício Ipanema">
+                            <input type="text" class="form-control" id="complemento">
                         </div>
 
                         <div class="form-row">
@@ -115,7 +115,12 @@
                         </div>
 
                         <div class="text-right">
-                            <button class="btn btn-primary" type="submit" @click="validateForm">Submit form</button>
+                            <button class="btn btn-primary" type="submit" @click="validateForm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                </svg>
+                                Cadastrar
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -130,11 +135,9 @@ import { ufArray, modalidadesArray, createEntryObject } from '../../utils';
 export default {
     name: 'AddModal',
 
-    props: ['selected'],
-
     methods: {
         validateForm() {
-            var form = document.querySelector('.needs-validation');
+            var form = document.querySelector('#addForm');
 
             form.addEventListener('submit', event => {
                 if (!form.checkValidity()) {
