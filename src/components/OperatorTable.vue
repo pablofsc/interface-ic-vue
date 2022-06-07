@@ -77,8 +77,13 @@ export default {
                         .padStart(14, '0')
                         .replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
 
-                    item['Data Registro ANS'] = (new Date(item['Data Registro ANS']))
-                        .toLocaleDateString();
+                    item['Data Registro ANS'] = item['Data Registro ANS']
+                        .slice(0, 10);
+
+                    item['Parsed Date'] = item['Data Registro ANS']
+                        .split("-")
+                        .reverse()
+                        .join("/");
                 });
 
                 operators.value = table;

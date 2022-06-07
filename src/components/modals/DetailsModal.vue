@@ -14,7 +14,7 @@
                     <p> <i> Nome Fantasia: </i> {{ selected['Nome Fantasia'] || 'não possui' }} </p>
                     <p> <i> CPNJ: </i> {{ selected['CNPJ'] }} </p>
                     <hr>
-                    <p> <i> Registro ANS: </i> {{ selected['Registro ANS'] }} (registro em {{ selected['Data Registro ANS'] }}) </p>
+                    <p> <i> Registro ANS: </i> {{ selected['Registro ANS'] }} (registro em {{ selected['Parsed Date'] }}) </p>
                     <p> <i> Modalidade: </i> {{ selected['Modalidade'] }}</p>
                     <p> <i> Representante: </i> {{ selected['Representante'] }} </p>
                     <p> <i> </i> {{ selected['Cargo Representante'] }} </p>
