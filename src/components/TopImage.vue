@@ -11,7 +11,7 @@ export default { name: "TopImage" };
 <style scoped>
 .topImage {
     width: 100%;
-    margin: 50px 0;
+    margin: 50px 0 0 0;
 }
 
 img {

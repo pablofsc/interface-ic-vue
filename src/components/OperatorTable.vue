@@ -161,11 +161,11 @@ p {
     align-items: center;
 
     position: sticky;
-    top: 50px;
+    top: 0px;
     z-index: 999;
 
     width: 100%;
-    padding: 0px 5% 70px 5%;
+    padding: 50px 5% 70px 5%;
 }
 
 .topBar {
