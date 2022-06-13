@@ -59,7 +59,7 @@ export default {
 
     props: ['selected'],
 
-    emits: ['changed'],
+    emits: ['changed', 'deleted'],
 
     components: {
         EditModal
@@ -73,27 +73,25 @@ export default {
                 body: JSON.stringify({ registrationNumber: entry['Registro ANS'] })
             })
                 .then(res => {
-                    console.log(res);
                     $('#closeModalButton').click();
-                    this.$emit('changed');
+                    this.$emit('deleted');
                 })
                 .catch(e => console.log(e));
         },
 
         editEntry() {
             this.selected['CNPJ'] = this.selected['CNPJ'].replace(/\D/g, '');
+            this.selected['Registro Original'] = this.selected['Registro ANS'];
 
             let date = new Date(this.selected['Data Registro ANS']);
             date = date.toISOString().slice(0, 10);
-
             this.selected['Data Registro ANS'] = date.toString();
 
-            this.selected['Registro Original'] = this.selected['Registro ANS'];
-
             $('#closeModalButton').click();
+            this.$emit('changed');
         },
 
-        handleChange(action) {
+        handleChange() {
             this.$emit('changed');
         }
     }

@@ -48,14 +48,15 @@
         </div>
     </div>
 
-    <DetailsModal :selected="selectedOperator" @changed="handleChange" />
-    <AddModal @created="handleChange" />
+    <DetailsModal :selected="selectedOperator" @deleted="handleDeletion" />
+    <AddModal @created="handleCreation" />
 </template>
 
 <script>
 import { ref } from 'vue';
 import DetailsModal from './modals/DetailsModal.vue';
 import AddModal from './modals/AddModal.vue';
+import { parseCNPJ } from '../utils';
 
 export default {
     name: 'OperatorTable',
@@ -72,10 +73,7 @@ export default {
             .then(res => res.json())
             .then(table => {
                 table.map(item => {
-                    item['CNPJ'] = item['CNPJ']
-                        .toString()
-                        .padStart(14, '0')
-                        .replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+                    item['CNPJ'] = parseCNPJ(item['CNPJ']);
 
                     item['Data Registro ANS'] = item['Data Registro ANS']
                         .slice(0, 10);
@@ -108,11 +106,17 @@ export default {
     },
 
     methods: {
-        handleChange(action) {
-            console.log(action);
-            console.log("Updating table...");
+        handleCreation(newObject) {
+            if (newObject) {
+                newObject['CNPJ'] = parseCNPJ(newObject['CNPJ']);
 
-            location.reload(); // encontrar um meio melhor de atualizar a lista
+                const index = this.operators.findIndex(i => i['Registro ANS'] > newObject['Registro ANS']);
+                this.operators.splice(index, 0, newObject);
+            }
+        },
+
+        handleDeletion() {
+            this.operators.splice(this.operators.findIndex(i => i['Registro ANS'] === this.selectedOperator['Registro ANS']), 1);
         }
     }
 };

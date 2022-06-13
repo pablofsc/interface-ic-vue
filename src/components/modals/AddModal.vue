@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form v-on:submit.prevent class="needs-validation" novalidate id="addForm">
+                    <form v-on:submit.prevent="validateForm" class="needs-validation" novalidate id="addForm">
                         <div class="form-group">
                             <label for="razao-social">Razão Social*</label>
                             <input required type="text" class="form-control" id="razao-social" placeholder="Operadora XYZ S.A.">
@@ -47,7 +47,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-10">
                                 <label for="logradouro">Logradouro*</label>
-                                <input required type="text" class="form-control" id="logradouro" placeholder="Av. Paulista">
+                                <input required type="text" class="form-control" id="logradouro" placeholder="">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="numero">Número*</label>
@@ -136,19 +136,17 @@ export default {
     name: 'AddModal',
 
     methods: {
-        validateForm() {
-            var form = document.querySelector('#addForm');
+        validateForm(event) {
+            if (!event.target.elements) return;
 
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    form.classList.add('was-validated');
-                }
-                else {
-                    this.sendToDatabase(event);
-                }
-            }, false);
+            if (!event.target.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.target.classList.add('was-validated');
+            }
+            else {
+                this.sendToDatabase(event);
+            }
         },
 
         sendToDatabase(event) {
@@ -161,7 +159,8 @@ export default {
             })
                 .then(res => {
                     $('#closeModalButtonAdd').click();
-                    this.$emit('created');
+                    $('#addForm').trigger('reset');
+                    this.$emit('created', parameters);
                 })
                 .catch(e => console.log(e));
         }

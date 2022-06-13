@@ -4,13 +4,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><b>Alterando {{ selected['Nome Fantasia'] || selected['Razao Social'] }} </b></h5>
-                    <button id="closeModalButtonAdd" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="closeModalButtonEdit" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <form v-on:submit.prevent class="needs-validation" novalidate id="editForm">
+                    <form v-on:submit.prevent="validateForm" class="needs-validation" novalidate id="editForm">
                         <div class="form-group">
                             <label for="razao-social">Razão Social*</label>
                             <input required type="text" class="form-control" id="razao-social" placeholder="Operadora XYZ S.A." v-model="selected['Razao Social']">
@@ -130,7 +130,7 @@
 </template>
 
 <script>
-import { ufArray, modalidadesArray, createEntryObject } from '../../utils';
+import { ufArray, modalidadesArray, createEntryObject, parseCNPJ } from '../../utils';
 
 export default {
     name: 'EditModal',
@@ -140,24 +140,21 @@ export default {
     emits: ['updated'],
 
     methods: {
-        validateForm() {
-            var form = document.querySelector('#editForm');
+        validateForm(event) {
+            if (!event.target.elements) return;
 
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    form.classList.add('was-validated');
-                }
-                else {
-                    this.sendToDatabase(event);
-                }
-            }, false);
+            if (!event.target.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.target.classList.add('was-validated');
+            }
+            else {
+                this.sendToDatabase(event);
+            }
         },
 
         sendToDatabase(event) {
             const parameters = createEntryObject(event.target.elements);
-            console.log(parameters);
 
             fetch('https://pablofsc-interface-ic.herokuapp.com/update', {
                 method: 'PATCH',
@@ -168,7 +165,9 @@ export default {
                 })
             })
                 .then(res => {
-                    $('#closeModalButtonAdd').click();
+                    this.selected['CNPJ'] = parseCNPJ(this.selected['CNPJ']);
+
+                    $('#closeModalButtonEdit').click();
                     this.$emit('updated');
                 })
                 .catch(e => console.log(e));
