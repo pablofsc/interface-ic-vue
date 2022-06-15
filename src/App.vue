@@ -18,19 +18,11 @@ export default {
 </script>
 
 <style>
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
     background-color: #f1f1f1;
-}
-
-svg {
-    margin-right: 5px;
-    position: relative;
-    bottom: 2px;
-}
-
-@media (max-width: 1000px) {
-    svg {
-        margin: 0;
-    }
 }
 </style>

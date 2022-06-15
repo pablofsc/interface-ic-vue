@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><b>Alterando {{ selected['Nome Fantasia'] || selected['Razao Social'] }} </b></h5>
-                    <button id="closeModalButtonEdit" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="closeModalButtonEdit" type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -165,12 +165,15 @@ export default {
                 })
             })
                 .then(res => {
-                    this.selected['CNPJ'] = parseCNPJ(this.selected['CNPJ']);
-
                     $('#closeModalButtonEdit').click();
-                    this.$emit('updated');
+                    this.close();
                 })
                 .catch(e => console.log(e));
+        },
+
+        close() {
+            this.selected['CNPJ'] = parseCNPJ(this.selected['CNPJ']);
+            this.$emit('updated');
         }
     },
 
