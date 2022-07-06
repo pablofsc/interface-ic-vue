@@ -1,6 +1,6 @@
 <template>
-    <div class="text-center topImage">
-        <img src="../assets/ic.png" style="" />
+    <div class="text-center topImage" title="Este site não tem relação com a ANS e os dados podem estar errados ou desatualizados.">
+        <img src="../assets/ans.png" />
     </div>
 </template>
 
@@ -16,7 +16,7 @@ export default { name: "TopImage" };
 
 img {
     object-fit: cover;
-    width: 300px;
-    height: 125px;
+    height: 75px;
+    margin: 25px 0;
 }
 </style>

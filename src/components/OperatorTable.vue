@@ -71,6 +71,9 @@
         Carregando dados...
     </div>
 
+    <div class="d-flex my-4 justify-content-center">
+        <p>Este site é apenas uma prova de conceito, não tem relação com a ANS e os dados podem estar errados ou desatualizados.</p>
+    </div>
 
     <DetailsModal :selected="selectedOperator" @deleted="handleDeletion" />
     <AddModal @created="handleCreation" />
