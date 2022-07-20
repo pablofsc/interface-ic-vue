@@ -1,5 +1,5 @@
 {
-  "name": "interface-ic-vue",
+  "name": "operadoras-ans",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -10,6 +10,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "bootstrap-icons-vue": "^1.8.1",
     "gh-pages": "^4.0.0",
     "vue": "^3.2.25"
   },

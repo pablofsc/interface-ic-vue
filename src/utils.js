@@ -68,8 +68,10 @@ export const parseCNPJ = (cnpj) => {
         .toString()
         .padStart(14, '0')
         .replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
-}
+};
 
 export const compare = (a, b, property) => {
-    return a[property] === b[property]
-}
+    return a[property] === b[property];
+};
+
+export const dbURL = 'https://pablofsc-operadoras-ans-db.herokuapp.com';

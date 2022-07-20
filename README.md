@@ -14,4 +14,4 @@ O front está hospedado no GitHub Pages. Online em https://ans.pablofsc.me
 - `npm run build`ou `vite build` para compilar a página.
 
 ## Requisitos
-O projeto solicita as informações da lista a <a href='https://github.com/pablofsc/interface-ic-database'>uma API</a> hospedada no Heroku.
+O projeto solicita as informações da lista a <a href='https://github.com/pablofsc/operadoras-ans-db'>uma API</a> hospedada no Heroku.
