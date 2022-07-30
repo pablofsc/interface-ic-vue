@@ -32,16 +32,17 @@
                 <tr v-for="operator in filteredOperators" :key="operator" data-toggle="modal" data-target="#operatorInfo">
                     <td @click="selectedOperator = operator">
                         <div class="operatorDetails">
-                            <p class="left">
-                            <p>
-                                <b style="font-size: 15px">{{ operator['Nome Fantasia'] || operator['Razao Social'] }} </b>
-                            </p>
-                            CNPJ {{ operator['CNPJ'] }} - Registro ANS {{ operator['Registro ANS'] }}
-                            </p>
-                            <p class="right">
+                            <div class="left">
+                                <p>
+                                    <b style="font-size: 15px">{{ operator['Nome Fantasia'] || operator['Razao Social'] }} </b>
+                                </p>
+                                CNPJ {{ operator['CNPJ'] }} - Registro ANS {{ operator['Registro ANS'] }}
+                            </div>
+
+                            <div class="right">
                                 {{ operator['Modalidade'] }}
                                 <i>sede em {{ operator['Bairro'] }}, {{ operator['Cidade'] }} - {{ operator['UF'] }}</i>
-                            </p>
+                            </div>
                         </div>
                     </td>
                 </tr>

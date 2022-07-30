@@ -4,22 +4,22 @@
 </template>
 
 <script>
-import OperatorTable from './components/OperatorTable.vue';
-import TopImage from './components/TopImage.vue';
+import OperatorTable from "./components/OperatorTable.vue";
+import TopImage from "./components/TopImage.vue";
 
 export default {
     name: "App",
 
     components: {
         OperatorTable,
-        TopImage
+        TopImage,
     },
 };
 </script>
 
 <style>
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 body {
